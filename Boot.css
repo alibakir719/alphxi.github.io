@@ -1,0 +1,124 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+.body
+{
+    width: 1366px;
+    height: 768px;
+    background-color: rgba(27, 27, 27);
+}
+.con1
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}.con2
+{
+    height: 192px;
+    width: 341.5px;
+    background-color :none;
+    float: left;
+}.con3
+{
+    height: 192px;
+    width: 341.5px;
+    float: left;
+}.con4
+{
+    height: 192px;
+    width: 341.5px;
+    float: left;
+}.con5
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}
+.con6
+{
+    height: 384px;
+    width: 683px;
+    background-color: aqua;
+    background: transparent;
+    overflow: hidden;
+    float: left;
+}
+.con6 img
+{
+    margin-left: 40px;
+    width: 600px;
+}
+/* .con7
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: aqua;
+    background-color:none;
+    float: left; 
+}
+*/
+.con8
+{
+    height: 192px;
+    width: 341.5px;
+    background-color:none;
+    float: left;
+}
+.con9
+{
+    height: 192px;
+    width: 341.5px;
+    background-color :none;
+    float: left;
+}
+/* .con10
+{
+    height: 192px;
+    width: 341.5px;
+    background-color :aqua;
+    float: left;
+} */
+/* .con11
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: aqua;
+    float: left;
+} */
+.con12
+{
+    height: 192px;
+    width: 341.5px;
+    background-color :none;
+    float: left;
+}.con13
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}.con14
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}
+.con
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}
+.con15
+{
+    height: 192px;
+    width: 341.5px;
+    background-color: none;
+    float: left;
+}
