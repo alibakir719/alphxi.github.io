@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: codetype;
+            src: url(Codetype.ttf);
+        }
+        *
+        {
+            font-family: codetype;
+        }
+        body {
+            background-color: black;
+            color: lime;
+            font-family: codetype;
+        }
+        .box {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid lime;
+        }
+        input {
+            background-color: black;
+            color: lime;
+            border: 1px solid lime;
+            outline: none;
+        }
+        button {
+            font-family: codetype;
+            background-color: black;
+            color: lime;
+            border: 1px solid lime;
+            margin-top: 10px;
+        }
+        #output img, #output video {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <label for="a"> Ali : </label><br>
+    <input type="text" id="a" name="a" onkeydown="if (event.key === 'Enter') send('a')"><br>
+    <input type="file" id="fileA" name="fileA" accept="image/*,video/*" onchange="sendFile('a')">
+</div>
+
+<div class="box">
+    <label for="b"> Asim : </label><br>
+    <input type="text" id="b" name="b" onkeydown="if (event.key === 'Enter') send('b')"><br>
+    <input type="file" id="fileB" name="fileB" accept="image/*,video/*" onchange="sendFile('b')">
+</div>
+
+<div id="output"></div>
+
+<button onclick="deleteLast()">Delete Last Message</button>
+<button onclick="deleteAll()">Delete All Messages</button>
+
+<script>
+var messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+function send(boxName) {
+    var text = document.getElementById(boxName).value;
+    var message = {
+        id: messages.length,
+        boxName: boxName,
+        content: text,
+        read: false
+    };
+    messages.push(message);
+    updateOutput();
+    document.getElementById(boxName).value = '';
+    localStorage.setItem('messages', JSON.stringify(messages));
+}
+
+function sendFile(boxName) {
+    var fileInput = document.getElementById('file' + boxName.toUpperCase());
+    var file = fileInput.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        var message;
+        if (file.type.startsWith('image/')) {
+            message = '<img id="' + messages.length + '" src="' + reader.result + '">';
+        } else if (file.type.startsWith('video/')) {
+            message = '<video id="' + messages.length + '" controls src="' + reader.result + '"></video>';
+        }
+        messages.push(message);
+        document.getElementById('output').innerHTML += message;
+        fileInput.value = '';
+    }
+    reader.readAsDataURL(file);
+}
+
+function deleteLast() {
+    if (messages.length > 0) {
+        messages.pop();
+        var output = document.getElementById('output');
+        output.removeChild(output.lastChild);
+        localStorage.setItem('messages', JSON.stringify(messages));
+    }
+}
+
+function deleteAll() {
+    messages = [];
+    document.getElementById('output').innerHTML = '';
+    localStorage.setItem('messages', JSON.stringify(messages));
+}
+
+function editMessage(id) {
+    var message = messages[id];
+    var newText = prompt("Edit your message:", message.content);
+    if (newText) {
+        message.content = newText;
+        updateOutput();
+        localStorage.setItem('messages', JSON.stringify(messages));
+    }
+}
+
+function updateOutput() {
+    var output = document.getElementById('output');
+    output.innerHTML = '';
+    for (var i = 0; i < messages.length; i++) {
+        var message = messages[i];
+        var p = document.createElement('p');
+        p.id = message.id;
+        p.onclick = function() {
+            editMessage(this.id);
+            this.style.color = 'gray';
+            messages[this.id].read = true;
+        };
+        p.innerHTML = message.boxName.toUpperCase() + ': ' + message.content;
+        if (message.read) {
+            p.style.color = 'gray';
+        }
+        output.appendChild(p);
+    }
+}
+
+window.onload = updateOutput;
+</script>
+
+</body>
+</html>
